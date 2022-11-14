@@ -83,13 +83,16 @@ def uniaxial_material_analysis(
         stress = [ops.getTime()]
         strain = [ops.nodeDisp(2,1)]
 
+    if rate_type in ['StrainRate', 'Steps'] and rate_value is None:
+        raise TypeError('Must specify rate_value for rate_type %r' % rate_type)
+
     for i in range(len(peak_points)-1):
         if rate_type == 'None':
             num_steps = 1
         elif rate_type == 'StrainRate':
             num_steps = ceil(abs(peak_points[i+1] - peak_points[i])/rate_value)
         elif rate_type == 'Steps':
-            num_steps = rate_value
+            num_steps = int(rate_value)
         else:
             raise Exception('Unknown rate_type: %s' % rate_type)
 
