@@ -94,7 +94,7 @@ def uniaxial_material_analysis(
         elif rate_type == 'Steps':
             num_steps = int(rate_value)
         else:
-            raise Exception('Unknown rate_type: %s' % rate_type)
+            raise ValueError('Unknown rate_type: %r' % rate_type)
 
         incr = (peak_points[i+1] - peak_points[i])/num_steps
 
